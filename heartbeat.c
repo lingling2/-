@@ -23,7 +23,7 @@ void main(){
 	
 	TMOD = 0x01;
 	TH0 = 0xFC;
-	TL0 = 0x67;
+	TL0 = 0x67;		//定时
 	
 	ET0 = 1;
 	TR0 = 1;		//使能中断再开启定时器
