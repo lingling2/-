@@ -15,21 +15,24 @@ unsigned char LedBuffer[] = {
 	0xFF,0xFF,0xFF,0xFF,0xFF,0xFF
 };
 
+unsigned int cnt = 0;
+
 void main(){
-	unsigned int cnt = 0;
-	unsigned long sec = 0;
-	unsigned char i = 0;
 	
+	unsigned long sec = 0;
+		
 	ADDR3 = 1;
 	ENLED = 0;			//使能74HC138译码器U3
 	
+	EA = 1;				//使能总中断
+	ET0 = 1;			//使能T0定时器中断
+/********************先使能中断，再开启定时器********************/
 	TMOD = 0x01;		//定时器设置三步骤
 	TH0 = 0xFC;			//1.设置模式
 	TL0 = 0x67;			//2.设置初始值
 	TR0 = 1;			//3.启动定时器
 	
-	EA = 1;				//使能总中断
-	ET0 = 1;			//使能T0定时器中断
+	
 	
 	while(1){
 		if(cnt>=1000){
@@ -47,6 +50,9 @@ void main(){
 }
 
 void interupTimer0() interrupt 1{
+	
+	unsigned char i = 0;
+	
 	TH0 = 0xFC;
 	TL0 = 0x67;
 	cnt++;

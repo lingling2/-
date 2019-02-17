@@ -16,7 +16,7 @@ void main(){
 	TL1 = 0xCD;
 	
 	ET1 = 1;
-	RT1 = 1;
+	RT1 = 1;		//先使能中断再开启定时器
 	
 	ADDR2 = 0;
 	ADDR1 = 0;

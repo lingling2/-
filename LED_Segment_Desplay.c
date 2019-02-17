@@ -29,69 +29,70 @@ void main(){
 	TR0 = 1;			//3.启动定时器
 	
 	while(1){
-	if(TF == 1){
-		TF = 0;
-		TH0 = 0xFC;
-		TL0 = 0x67;
-		cnt++;
-		if(cnt>=1000){
-			cnt = 0;
-			sec++;
-			LedBuffer[0] = LedChar[sec%10];
-			LedBuffer[1] = LedChar[sec/10%10];
-			LedBuffer[2] = LedChar[sec/100%10];
-			LedBuffer[3] = LedChar[sec/1000%10];
-			LedBuffer[4] = LedChar[sec/10000%10];
-			LedBuffer[5] = LedChar[sec/100000%10];
+	    if(TF0 == 1){
+	    	TF0 = 0;
+	    	TH0 = 0xFC;
+	    	TL0 = 0x67;
+	    	cnt++;
+	    	if(cnt>=1000){
+	    		cnt = 0;
+	    		sec++;
+	    		LedBuffer[0] = LedChar[sec%10];
+	    		LedBuffer[1] = LedChar[sec/10%10];
+	    		LedBuffer[2] = LedChar[sec/100%10];
+	    		LedBuffer[3] = LedChar[sec/1000%10];
+	    		LedBuffer[4] = LedChar[sec/10000%10];
+	    		LedBuffer[5] = LedChar[sec/100000%10];
+	    	}
+	    	//P0 = 0xFF;    //解决鬼影的方法：关闭段选
+	    	ENLED = 1;		//解决鬼影的方法：关闭位选
+	    	switch(i){
+	    		case 0:
+	    			ADDR0 = 0;
+	    			ADDR1 = 0;
+	    			ADDR2 = 0;
+	    			i++;
+	    			P0 = LedBuffer[0];
+	    			break;
+	    		case 1:
+	    			ADDR0 = 1;
+	    			ADDR1 = 0;
+	    			ADDR2 = 0;
+	    			i++;
+	    			P0 = LedBuffer[1];
+	    			break;
+	    		case 2:
+	    			ADDR0 = 0;
+	    			ADDR1 = 1;
+	    			ADDR2 = 0;
+	    			i++;
+	    			P0 = LedBuffer[2];
+	    			break;
+	    		case 3:
+	    			ADDR0 = 1;
+	    			ADDR1 = 1;
+	    			ADDR2 = 0;
+	    			i++;
+	    			P0 = LedBuffer[3];
+	    			break;
+	    		case 4:
+	    			ADDR0 = 0;
+	    			ADDR1 = 0;
+	    			ADDR2 = 1;
+	    			i++;
+	    			P0 = LedBuffer[4];
+	    			break;
+	    		case 5:
+	    			ADDR0 = 1;
+	    			ADDR1 = 0;
+	    			ADDR2 = 1;
+	    			i++;
+	    			P0 = LedBuffer[5];
+	    			break;
+	    		default:
+	    			break;
+	    	}
+	    	ENLED = 0;
 		}
-		//P0 = 0xFF;    //解决鬼影的方法：关闭段选
-		ENLED = 1;		//解决鬼影的方法：关闭位选
-		switch(i){
-			case 0:
-				ADDR0 = 0;
-				ADDR1 = 0;
-				ADDR2 = 0;
-				i++;
-				P0 = LedBuffer[0];
-				break;
-			case 1:
-				ADDR0 = 1;
-				ADDR1 = 0;
-				ADDR2 = 0;
-				i++;
-				P0 = LedBuffer[1];
-				break;
-			case 2:
-				ADDR0 = 0;
-				ADDR1 = 1;
-				ADDR2 = 0;
-				i++;
-				P0 = LedBuffer[2];
-				break;
-			case 3:
-				ADDR0 = 1;
-				ADDR1 = 1;
-				ADDR2 = 0;
-				i++;
-				P0 = LedBuffer[3];
-				break;
-			case 4:
-				ADDR0 = 0;
-				ADDR1 = 0;
-				ADDR2 = 1;
-				i++;
-				P0 = LedBuffer[4];
-				break;
-			case 5:
-				ADDR0 = 1;
-				ADDR1 = 0;
-				ADDR2 = 1;
-				i++;
-				P0 = LedBuffer[5];
-				break;
-			default:
-				break;
-		}
-		ENLED = 0;
 	}
 }

@@ -1,10 +1,10 @@
-#include<reg52.h>
+﻿#include<reg52.h>
 
-sbit ADDR0 = P0^0;
-sbit ADDR1 = P0^1;
-sbit ADDR2 = P0^2;
-sbit ADDR3 = P0^3;
-sbit ENLED = P0^4;
+sbit ADDR0 = P1^0;
+sbit ADDR1 = P1^1;
+sbit ADDR2 = P1^2;
+sbit ADDR3 = P1^3;
+sbit ENLED = P1^4;
 
 unsigned char code image[][]={
 	{0xFF,0x99,0x00,0x00,0x00,0x81,0xC3,0xE7},
@@ -26,7 +26,7 @@ void main(){
 	TL0 = 0x67;
 	
 	ET0 = 1;
-	TR0 = 1;
+	TR0 = 1;		//使能中断再开启定时器
 	while(1);
 }
 

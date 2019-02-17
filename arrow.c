@@ -25,10 +25,10 @@ void main(){
 	TMOD = 0x01;
 	TH0 = 0xFC;
 	TL0 = 0x67;
-	TR0 = 1;
 	
 	EA = 1;
-	ET0 = 1;
+	ET0 = 1;		//应该先使能中断，再开启定时器
+	TR0 = 1;
 	while(1);
 }
 
