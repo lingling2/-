@@ -49,8 +49,32 @@ void DS1302SingleRead(unsigned char reg){
 	DS1302_CE = 0;
 	return dat;
 }
-
+/* 初始化DS1302 */
 void DS1302Init(){
 	DS1302_CE = 0;
 	DS1302_CK = 0;
+}
+
+/* 用突发模式连续写入8个寄存器数据，dat-待写入数据的指针 */
+void DS1302BurstWrite(unsigned char *dat){
+	unsigned char i;
+	
+	DS1302_CE = 1;
+	DS1302ByteWrite(0xBE);
+	for(i = 0;i<8;i++){
+		DS1302ByteWrite(dat[i]);
+	}
+	DS1302_CE = 0;
+}
+
+/* 用突发模式连续读取8个寄存器的数据，dat-读取数据的接收指针 */
+void DS1302BurstRead(unsigned char *dat){
+	unsigned char i;
+	
+	DS1302_CE = 1;
+	DS1302ByteWrite(0xBF);
+	for(i = 0;i<8;i++){
+		dat[i] = DS1302ByteRead()
+	}
+	DS1302_CE = 0;
 }
